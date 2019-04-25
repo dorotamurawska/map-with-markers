@@ -29,7 +29,7 @@ body {
     color: #222;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 28px;
     transition: .2s;
     text-decoration: none;
 }
@@ -54,9 +54,141 @@ body {
 th {
     text-align: center;
     text-transform: uppercase;
+    font-size: 20px;
 }
 
 td {
-    padding: 20px;
     text-align: center;
+    height: 28px;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 0;
+}
+
+/* max-width: 1280px */
+@media (max-width: 1280px) {
+    #map {
+        height: calc(100vh - 104px);
+    }
+
+    .card-header {
+        min-height: 50px;
+        line-height: 50px;
+        padding: 0;
+    }
+
+    .btn.btn-link {
+        font-size: 26px;
+    }
+
+    th {
+        font-size: 18px;
+        padding: 0;
+    }
+
+    td {
+        font-size: 18px;
+    }
+}
+
+/* max-width: 1024px */
+@media (max-width: 1024px) {
+    #map {
+        height: calc(100vh - 94px);
+    }
+
+    .card-header {
+        min-height: 45px;
+        line-height: 45px;
+        padding: 0;
+    }
+
+    .btn.btn-link {
+        font-size: 24px;
+    }
+
+    .collapse,
+    .collapsing,
+    .collapse.show {
+        width: 90vw;
+    }
+
+    th {
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    td {
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+/* max-width: 710px */
+@media (max-width: 710px) {
+    #map {
+        height: calc(100vh - 84px);
+    }
+
+    .card-header {
+        min-height: 40px;
+        line-height: 40px;
+        padding: 0;
+    }
+
+    .btn.btn-link {
+        font-size: 20px;
+    }
+
+    .collapse,
+    .collapsing,
+    .collapse.show {
+        width: 95vw;
+    }
+}
+
+/* max-width: 580px */
+@media (max-width: 580px) {
+
+    .btn.btn-link {
+        font-size: 20px;
+    }
+
+    .collapse,
+    .collapsing,
+    .collapse.show {
+        width: 100%;
+    }
+
+    th {
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    td {
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+/* max-width: 420px */
+@media (max-width: 420px) {
+
+    .btn.btn-link {
+        font-size: 18px;
+    }
+
+    th {
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    td {
+        font-size: 12px;
+    }
 }
