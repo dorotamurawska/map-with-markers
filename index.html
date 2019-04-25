@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+
+    <!-- Leaflet JavaScript -->
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        Map
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body" id="map">
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        Table of markers
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <!-- <div class="card-body"> -->
+                <table class="table table-sm card-body">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">List of markers</th>
+                            <th scope="col">Coordinates Y</th>
+                            <th scope="col">Coordinates X</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+
+
+    <!-- Leaflet.js, Vanillia JS -->
+
+    <script type="text/javascript">
+        const options = {
+            center: [52.23178166946391, 21.006213426589966],
+            zoom: 12
+        }
+
+        const map = L.map('map', options);
+        const markerOptions = '';
+        const markerIcon = L.icon({
+            iconUrl: 'https://img.icons8.com/material-rounded/48/000000/visit.png',
+            iconSize: [48, 48],
+            iconAnchor: [24, 48],
+            popupAnchor: [0, -42]
+        });
+
+        L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.png', {
+                attribution: 'OSM'
+            }).addTo(map);
+
+        let numberOfMarker = 0;
+        const markerGroup = L.layerGroup();
+
+        map.on('click',
+            function (e) {
+                numberOfMarker++;
+                const tableBody = document.querySelector('tbody');
+                const createdTag = document.createElement('tr');
+                const newMarker = L.marker(e.latlng, {
+                    icon: markerIcon,
+                    title: "NewPoint",
+                    alt: `Marker nr ${numberOfMarker}`,
+                    tabindex: numberOfMarker,
+                    draggable: true
+                });
+
+                const newMarkerCoordinates = newMarker.getLatLng();
+                const newMarkerCoordinatesLat = newMarkerCoordinates.lat;
+                const newMarkerCoordinatesLng = newMarkerCoordinates.lng;
+
+                newMarker.bindPopup(`Marker nr ${numberOfMarker}.`);
+                newMarker.on('dragend', (e) => {
+                    const marker = e.target;
+                    const numberOfDragendMarker = marker.options.tabindex
+                    const markerCoordinates = marker.getLatLng();
+                    const markerCoordinatesLat = markerCoordinates.lat;
+                    const markerCoordinatesLng = markerCoordinates.lng;
+                    const tdCoordinatesLat = document.querySelector(`.y${numberOfDragendMarker}`);
+                    const tdCoordinatesLng = document.querySelector(`.x${numberOfDragendMarker}`);
+
+                    tdCoordinatesLat.textContent = markerCoordinatesLat;
+                    tdCoordinatesLng.textContent = markerCoordinatesLng;
+                    console.log(tdCoordinatesLat, tdCoordinatesLng)
+
+                });
+
+                markerGroup.addLayer(newMarker).addTo(map);
+
+                createdTag.innerHTML = `<th scope="row">${numberOfMarker}</th>
+                            <td>Marker nr ${numberOfMarker}</td>
+                            <td class='y${numberOfMarker}'>${newMarkerCoordinatesLat}</td>
+                            <td class='x${numberOfMarker}'>${newMarkerCoordinatesLng}</td>`;
+                tableBody.appendChild(createdTag);
+            });
+    </script>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
