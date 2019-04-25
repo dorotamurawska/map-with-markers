@@ -6,11 +6,57 @@ html {
 }
 
 body {
+    height: 100vh;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    background-color: rgba(1, 1, 1, 0.02);
 }
 
 #map {
-    height: 70vh;
+    height: calc(100vh - 144px);
+}
 
+.card-header {
+    background: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-height: 70px;
+    line-height: 70px;
+}
+
+.btn.btn-link {
+    padding: 0;
+    color: #222;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 24px;
+    transition: .2s;
+    text-decoration: none;
+}
+
+.btn.btn-link:hover {
+    transform: scale(1.1);
+}
+
+#collapseOne {
+    max-width: none;
+    width: 100%;
+}
+
+.collapse,
+.collapsing,
+.collapse.show {
+    max-width: 1024px;
+    width: 70vw;
+    margin: 0 auto;
+}
+
+th {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 20px;
+    text-align: center;
 }
