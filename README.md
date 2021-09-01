@@ -1,5 +1,5 @@
 # map with markers 
-## (js, leaflet, bootstrap, css, html)
+(js, leaflet, bootstrap, css, html)
 
 ### simple app where you can add markers on the map
 
